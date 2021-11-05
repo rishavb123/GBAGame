@@ -68,9 +68,9 @@ extern volatile unsigned short *videoBuffer;
 // ---------------------------------------------------------------------------
 typedef struct
 {
-  const volatile void *src;
-  const volatile void *dst;
-  u32                  cnt;
+    const volatile void *src;
+    const volatile void *dst;
+    u32                  cnt;
 } DMA_CONTROLLER;
 
 #define DMA ((volatile DMA_CONTROLLER *) 0x040000B0)

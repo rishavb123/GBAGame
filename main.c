@@ -14,53 +14,53 @@
 // Add any additional states you need for your app. You are not requried to use
 // these specific provided states.
 enum gba_state {
-  START,
-  PLAY,
-  WIN,
-  LOSE,
+    START,
+    PLAY,
+    WIN,
+    LOSE,
 };
 
 int main(void) {
-  /* TODO: */
-  // Manipulate REG_DISPCNT here to set Mode 3. //
-
-  // Save current and previous state of button input.
-  u32 previousButtons = BUTTONS;
-  u32 currentButtons = BUTTONS;
-
-  // Load initial application state
-  enum gba_state state = START;
-
-  while (1) {
-    currentButtons = BUTTONS; // Load the current state of the buttons
-
     /* TODO: */
-    // Manipulate the state machine below as needed //
-    // NOTE: Call waitForVBlank() before you draw
+    // Manipulate REG_DISPCNT here to set Mode 3. //
 
-    switch (state) {
-      case START:
+    // Save current and previous state of button input.
+    u32 previousButtons = BUTTONS;
+    u32 currentButtons = BUTTONS;
 
-        // state = ?
-        break;
-      case PLAY:
+    // Load initial application state
+    enum gba_state state = START;
 
-        // state = ?
-        break;
-      case WIN:
+    while (1) {
+        currentButtons = BUTTONS; // Load the current state of the buttons
 
-        // state = ?
-        break;
-      case LOSE:
+        /* TODO: */
+        // Manipulate the state machine below as needed //
+        // NOTE: Call waitForVBlank() before you draw
 
-        // state = ?
-        break;
+        switch (state) {
+            case START:
+
+                // state = ?
+                break;
+            case PLAY:
+
+                // state = ?
+                break;
+            case WIN:
+
+                // state = ?
+                break;
+            case LOSE:
+
+                // state = ?
+                break;
+        }
+
+        previousButtons = currentButtons; // Store the current state of the buttons
     }
 
-    previousButtons = currentButtons; // Store the current state of the buttons
-  }
+    UNUSED(previousButtons); // You can remove this once previousButtons is used
 
-  UNUSED(previousButtons); // You can remove this once previousButtons is used
-
-  return 0;
+    return 0;
 }
