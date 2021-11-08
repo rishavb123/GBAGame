@@ -1,8 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "graphics/gba.h"
-
 // TODO: Create any necessary structs
 
 /*
