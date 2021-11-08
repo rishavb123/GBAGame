@@ -61,6 +61,11 @@ submit: clean
 	@rm -f submission.tar.gz
 	@tar czvf submission.tar.gz *
 
+.PHONY: build
+build: 
+	@echo "[BUILD] Removing non-gba compiled files"
+	rm -f *.o *.elf *.log */*.o
+
 .PHONY: clean
 clean:
 	@echo "[CLEAN] Removing all compiled files"
