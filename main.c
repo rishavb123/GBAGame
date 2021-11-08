@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "graphics/gba.h"
 #include "graphics/draw.h"
+#include "graphics/gba.h"
 
 #include "utils/misc.h"
 
@@ -25,8 +25,9 @@ enum gba_state {
 };
 
 int main(void) {
-    /* TODO: */
+    
     // Manipulate REG_DISPCNT here to set Mode 3. //
+    REG_DISPCNT = MODE3 | BG2_ENABLE;
 
     // Save current and previous state of button input.
     u32 previousButtons = BUTTONS;
@@ -44,8 +45,8 @@ int main(void) {
 
         /* TODO: */
         // Manipulate the state machine below as needed //
-        
         waitForVBlank();
+        fillScreenDMA(GREEN);
         switch (state)
         {
             case START:
