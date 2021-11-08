@@ -4,7 +4,6 @@
 #include "colors.h"
 #include "dma.h"
 #include "input.h"
-#include "../utils/misc.h"
 #include "../utils/rand.h"
 #include "../utils/types.h"
 
