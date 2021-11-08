@@ -8,7 +8,7 @@ void waitForVBlank(void)
     // (1)
     // Write a while loop that loops until we're NOT in vBlank anymore:
     // (This prevents counting one VBlank more than once if your app is too fast)
-    while (SCANLINECOUNTER >= HEIGHT)
+    while (SCANLINECOUNTER > HEIGHT)
         ;
 
     // (2)
@@ -21,15 +21,6 @@ void waitForVBlank(void)
     vBlankCounter++;
 }
 
-static int __qran_seed = 42;
-static int qran(void)
-{
-    __qran_seed = 1664525 * __qran_seed + 1013904223;
-    return (__qran_seed >> 16) & 0x7FFF;
-}
-
-int randint(int min, int max) { return (qran() * (max - min) >> 15) + min; }
-
 void setPixel(int row, int col, u16 color)
 {
     videoBuffer[OFFSET(row, col, WIDTH)] = color;
@@ -37,28 +28,29 @@ void setPixel(int row, int col, u16 color)
 
 void drawRectDMA(int row, int col, int width, int height, volatile u16 color)
 {
-    for (int i = col; i < col + height; i++)
+    for (int r = row; r < row + height; r++)
     {
-        DMA->src = &color;
-        DMA->dst = &videoBuffer[OFFSET(row, i, WIDTH)];
-        DMA->cnt = width | DMA_ON | DMA_SOURCE_FIXED | DMA_DESTINATION_DECREMENT;
+        DMA[3].src = &color;
+        DMA[3].dst = &videoBuffer[OFFSET(r, col, WIDTH)];
+        DMA[3].cnt = width | DMA_ON | DMA_SOURCE_FIXED | DMA_DESTINATION_INCREMENT;
     }
 }
 
 void drawFullScreenImageDMA(const u16 *image)
 {
-    DMA->src = image;
-    DMA->dst = videoBuffer;
-    DMA->cnt = (WIDTH * HEIGHT) | DMA_ON | DMA_SOURCE_INCREMENT | DMA_DESTINATION_DECREMENT;
+    DMA[3].src = image;
+    DMA[3].dst = videoBuffer;
+    DMA[3].cnt = (WIDTH * HEIGHT) | DMA_ON | DMA_SOURCE_INCREMENT | DMA_DESTINATION_INCREMENT;
 }
 
 void drawImageDMA(int row, int col, int width, int height, const u16 *image)
 {
-    for (int i = col; i < col + height; i++)
+    for (int r = 0; r < height; r++)
     {
-        DMA->src = image;
-        DMA->dst = &videoBuffer[OFFSET(row, i, WIDTH)];
-        DMA->cnt = width | DMA_ON | DMA_SOURCE_INCREMENT | DMA_DESTINATION_DECREMENT;
+        DMA[3].src = &image[OFFSET(r, 0, width)]
+        ;
+        DMA[3].dst = &videoBuffer[OFFSET(r + row, col, WIDTH)];
+        DMA[3].cnt = width | DMA_ON | DMA_SOURCE_FIXED | DMA_DESTINATION_INCREMENT;
     }
 }
 

@@ -1,17 +1,9 @@
 #ifndef GBA_H
 #define GBA_H
 
-// ---------------------------------------------------------------------------
-//                       USEFUL TYPEDEFS
-// ---------------------------------------------------------------------------
-/* An unsigned 32-bit (4-byte) type */
-typedef unsigned int u32;
-
-/* An unsigned 16-bit (2-byte) type */
-typedef unsigned short u16;
-
-/* An unsigned 8-bit (1-byte) type. Note that this type cannot be written onto RAM directly. */
-typedef unsigned char u8;
+#include "dma.h"
+#include "../utils/rand.h"
+#include "../utils/types.h"
 
 // ---------------------------------------------------------------------------
 //                       MODE3 MACROS
@@ -63,45 +55,7 @@ extern volatile unsigned short *videoBuffer;
 // macro to check if the button was pressed in the inputs.
 #define KEY_JUST_PRESSED(key, buttons, oldbuttons)
 
-// ---------------------------------------------------------------------------
-//                       DMA
-// ---------------------------------------------------------------------------
-typedef struct
-{
-    const volatile void *src;
-    const volatile void *dst;
-    u32                  cnt;
-} DMA_CONTROLLER;
 
-#define DMA ((volatile DMA_CONTROLLER *) 0x040000B0)
-
-// Defines
-#define DMA_CHANNEL_0 0
-#define DMA_CHANNEL_1 1
-#define DMA_CHANNEL_2 2
-#define DMA_CHANNEL_3 3
-
-#define DMA_DESTINATION_INCREMENT (0 << 21)
-#define DMA_DESTINATION_DECREMENT (1 << 21)
-#define DMA_DESTINATION_FIXED (2 << 21)
-#define DMA_DESTINATION_RESET (3 << 21)
-
-#define DMA_SOURCE_INCREMENT (0 << 23)
-#define DMA_SOURCE_DECREMENT (1 << 23)
-#define DMA_SOURCE_FIXED (2 << 23)
-
-#define DMA_REPEAT (1 << 25)
-
-#define DMA_16 (0 << 26)
-#define DMA_32 (1 << 26)
-
-#define DMA_NOW (0 << 28)
-#define DMA_AT_VBLANK (1 << 28)
-#define DMA_AT_HBLANK (2 << 28)
-#define DMA_AT_REFRESH (3 << 28)
-
-#define DMA_IRQ (1 << 30)
-#define DMA_ON (1 << 31)
 
 // ---------------------------------------------------------------------------
 //                       VBLANK
@@ -121,15 +75,6 @@ void waitForVBlank(void);
 //                       MISC
 // ---------------------------------------------------------------------------
 #define UNUSED(param) ((void)((param)))
-
-/*
- * Generates a pseudo-random number between min and max.
- *
- * @param  min bottom end of range (inclusive).
- * @param  max top end of range (exclusive).
- * @return random number in the given range.
- */
-int randint(int min, int max);
 
 // ---------------------------------------------------------------------------
 //                       DRAWING
