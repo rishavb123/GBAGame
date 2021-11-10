@@ -10,11 +10,11 @@
 
 #include "images/startScreen/startScreen.h"
 
-enum gba_state {
+enum gba_state
+{
     START,
     PLAY,
-    WIN,
-    LOSE,
+    DEATH
 };
 
 int main(void) {
@@ -31,7 +31,7 @@ int main(void) {
 
     // draws in black background
     waitForVBlank();
-    fillScreenDMA(BLACK);
+    drawFullScreenImageDMA(startScreen);
 
     while (1) {
         currentButtons = BUTTONS; // Load the current state of the buttons
@@ -41,21 +41,18 @@ int main(void) {
         switch (state)
         {
             case START:
-                drawFullScreenImageDMA(startScreen);
+                if(KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons)) {
+                    state = PLAY;
+                    fillScreenDMA(BLACK);
+                }
                 break;
             case PLAY:
 
-                // state = ?
                 break;
-            case WIN:
+            case DEATH:
 
-                // state = ?
                 break;
-            case LOSE:
-
-                // state = ?
-                break;
-        }
+            }
 
         previousButtons = currentButtons; // Store the current state of the buttons
     }
