@@ -18,6 +18,6 @@
 #define BUTTONS (*(volatile u32 *)0x4000130)
 #define KEY_DOWN(key, buttons) (~(buttons) & (key))
 
-#define KEY_JUST_PRESSED(key, buttons, oldbuttons) (KEY_DOWN((key), (buttons)) && !KEY_DOWN((key), (oldButtons)))
+#define KEY_JUST_PRESSED(key, buttons, oldButtons) (KEY_DOWN((key), (buttons)) && !KEY_DOWN((key), (oldButtons)))
 
 #endif
