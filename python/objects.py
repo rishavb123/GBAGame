@@ -1,4 +1,4 @@
-from constants import body_2_color
+from constants import body_2_color, width, height, multiplier
 
 import pygame
 
@@ -23,21 +23,41 @@ class Rect():
     def bottom(self):
         return self.y + self.h
 
-    @staticmethod
-    def collide(r1, r2):
-        x_collide = (r1.left() < r2.left() and r1.right() > r2.left()) or (r1.left() > r2.left() and r2.left() < r2.right())
-        y_collide = (r1.top() < r2.bottom() and r1.bottom() > r2.top()) or (r1.top() > r2.top() and r2.top() < r2.bottom())
-        return x_collide and y_collide
 
 class Drawable():
 
     def draw(self, surface):
         raise "Implement this method"
 
-class MovingBox(Rect, Drawable):
+class GameObject():
 
-    def __init__(self, x, y, w, h) -> None:
+    def update(self):
+        raise "Implement this method"
+
+class Collision(Rect):
+
+    def collide(self, rect):
+        raise "Implement this method"
+
+    @staticmethod
+    def check(r1, r2):
+        return r1.left() < r2.right() and \
+               r1.right() > r2.left() and \
+               r1.top() < r2.bottom() and \
+               r1.bottom() > r2.top()
+        
+
+class MovingBox(Rect, Drawable, GameObject):
+
+    def __init__(self, x, y, w, h, dx=0, dy=0, color=body_2_color):
         super().__init__(x, y, w, h)
+        self.dx = dx
+        self.dy = dy
+        self.color = color
 
     def draw(self, surface):
-        pygame.draw.rect(surface, body_2_color, (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(surface, self.color, (self.x * multiplier, self.y * multiplier, self.w * multiplier, self.h * multiplier))
+
+    def update(self):
+        self.x = (self.x + self.dx + self.w // 2) % width - self.w // 2
+        self.y = (self.y + self.dy + self.h // 2) % height - self.h // 2
