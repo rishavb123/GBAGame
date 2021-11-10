@@ -8,7 +8,7 @@
 
 #include "utils/misc.h"
 
-#include "images/garbage/garbage.h"
+#include "images/startScreen/startScreen.h"
 
 enum gba_state {
     START,
@@ -38,13 +38,10 @@ int main(void) {
 
         waitForVBlank();
 
-        drawImageDMA(0, 0, GARBAGE_WIDTH, GARBAGE_HEIGHT, garbage);
-
         switch (state)
         {
             case START:
-
-                // state = ?
+                drawFullScreenImageDMA(startScreen);
                 break;
             case PLAY:
 
