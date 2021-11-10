@@ -18,50 +18,44 @@ int main(void) {
     REG_DISPCNT = MODE3 | BG2_ENABLE;
 
     // Save current and previous state of button input.
-    u32 previousButtons = BUTTONS;
-    u32 currentButtons = BUTTONS;
-
-    // Load initial application state
-    enum gba_state state = START;
+    
+    setupInitialState();
 
     // draws in black background
     waitForVBlank();
     drawFullScreenImageDMA(startScreen);
 
     while (1) {
-        currentButtons = BUTTONS; // Load the current state of the buttons
+        cs.buttons = BUTTONS; // Load the current state of the buttons
 
         waitForVBlank();
 
-        switch (state)
+        switch (cs.gameState)
         {
             case START:
-                if(KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons)) {
-                    state = PLAY;
+                if(KEY_JUST_PRESSED(BUTTON_START, cs.buttons, ps.buttons)) {
+                    cs.gameState = PLAY;
                     fillScreenDMA(BACKGROUND_COLOR);
                 }
                 break;
             case PLAY:
-
+                
                 break;
             case DEATH:
-                if (KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons))
+                if (KEY_JUST_PRESSED(BUTTON_START, cs.buttons, ps.buttons))
                 {
-                    state = PLAY;
+                    cs.gameState = PLAY;
                     fillScreenDMA(BACKGROUND_COLOR);
                 }
-                else if (KEY_JUST_PRESSED(BUTTON_SELECT, currentButtons, previousButtons))
+                else if (KEY_JUST_PRESSED(BUTTON_SELECT, cs.buttons, ps.buttons))
                 {
-                    state = START;
+                    cs.gameState = START;
                     drawFullScreenImageDMA(startScreen);
                 }
                 break;
-            }
-
-        previousButtons = currentButtons; // Store the current state of the buttons
+        }
+        ps = cs;
     }
-
-    UNUSED(previousButtons); // You can remove this once previousButtons is used
 
     return 0;
 }

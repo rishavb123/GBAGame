@@ -18,7 +18,7 @@ struct state ps;
 
 void setupInitialState() {
     cs.gameState = START;
-    cs.player = player;
+    cs.player = &player;
     cs.numEnemies = 0;
     ps = cs;
 }
