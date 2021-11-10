@@ -14,6 +14,9 @@ echo $output
 # put all required o files into Makefile
 sed -i "17s/.*/$output/" Makefile # replace line 17 with $output
 
+# sleep for 2 seconds
+sleep 2
+
 # actually run the gba program
 make clean # clean previous runs
 make med # run program
