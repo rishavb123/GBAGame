@@ -2,6 +2,11 @@
 #include "entity.h"
 #include "config.h"
 
+void eraseEntity(struct entity *e)
+{
+    drawRectDMA(e->y, e->x, e->w, e->h, BACKGROUND_COLOR);
+}
+
 void drawEntity(struct entity *e)
 {
     drawImageDMA(e->y, e->x, e->w, e->h, e->image);

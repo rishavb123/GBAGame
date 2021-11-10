@@ -3,19 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "game/config.h"
+#include "game/state.h"
 #include "graphics/draw.h"
 #include "graphics/gba.h"
 
 #include "utils/misc.h"
 
 #include "images/startScreen/startScreen.h"
-
-enum gba_state
-{
-    START,
-    PLAY,
-    DEATH
-};
 
 int main(void) {
     
@@ -43,14 +38,23 @@ int main(void) {
             case START:
                 if(KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons)) {
                     state = PLAY;
-                    fillScreenDMA(BLACK);
+                    fillScreenDMA(BACKGROUND_COLOR);
                 }
                 break;
             case PLAY:
 
                 break;
             case DEATH:
-
+                if (KEY_JUST_PRESSED(BUTTON_START, currentButtons, previousButtons))
+                {
+                    state = PLAY;
+                    fillScreenDMA(BACKGROUND_COLOR);
+                }
+                else if (KEY_JUST_PRESSED(BUTTON_SELECT, currentButtons, previousButtons))
+                {
+                    state = START;
+                    drawFullScreenImageDMA(startScreen);
+                }
                 break;
             }
 

@@ -18,6 +18,13 @@ struct entity
 };
 
 /**
+ * @brief erases an entity
+ * 
+ * @param e the entity to erase
+ */
+void eraseEntity(struct entity *e);
+
+/**
  * @brief draws an entity
  * 
  * @param e the entity to draw
