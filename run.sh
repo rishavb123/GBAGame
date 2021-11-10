@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Recursively get all c files
-cfiles=$(find . -type f -name \*.c) # get all the c files in the directory
+cfiles=$(find . -type f -not -path "*archive*" -name \*.c) # get all the c files in the directory
 
 # Preprocess the output string
 ofiles="${cfiles//.c/.o}" # replace .c with .o
