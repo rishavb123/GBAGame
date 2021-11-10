@@ -13,12 +13,14 @@ enum gamestate
 
 struct state {
     enum gamestate gameState;
-    struct entity geralt;
+    struct entity player;
     int numEnemies;
     struct entity enemies[MAX_ENEMIES];
 };
 
-extern struct state *cs;
-extern struct state *ps;
+extern struct state cs;
+extern struct state ps;
+
+void setupInitialState();
 
 #endif

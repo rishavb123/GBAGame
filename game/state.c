@@ -1,7 +1,7 @@
 #include "state.h"
 #include "../images/geralt/geralt.h"
 
-const struct entity player = {
+struct entity player = {
     0,
     0,
     GERALT_WIDTH,
@@ -13,9 +13,12 @@ const struct entity player = {
     geralt
 };
 
-struct state *cs = {
-    START
-};
+struct state cs;
+struct state ps;
 
-
-struct state *ps;
+void setupInitialState() {
+    cs.gameState = START;
+    cs.player = player;
+    cs.numEnemies = 0;
+    ps = cs;
+}
