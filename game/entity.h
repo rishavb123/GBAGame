@@ -14,7 +14,7 @@ struct entity
     int dy;
     int health;
     int onGround;
-    short *image;
+    const unsigned short *image;
 };
 
 /**
