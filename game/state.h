@@ -14,7 +14,7 @@ enum gamestate
 
 struct state {
     enum gamestate gameState;
-    struct entity *player;
+    struct entity player;
     int numEnemies;
     struct entity enemies[MAX_ENEMIES];
     u32 buttons;
