@@ -56,13 +56,13 @@ int main(void)
 
             drawRectDMA(10, 10, 100, 10, BLACK);
             drawRectDMA(10, 10, cs.player.health, 10, GREEN);
-            drawRectDMA(10, WIDTH - 200, 200, 20, BLACK);
+            drawRectDMA(10, WIDTH - 100, 100, 20, BLACK);
             int score = t / 100;
             if (score > 999)
                 score = 999;
             char s2[11];
             snprintf(s2, 11, "N: %d", score);
-            drawCenteredString(10, WIDTH - 200, 200, 20, s2, WHITE);
+            drawCenteredString(10, WIDTH - 100, 100, 20, s2, WHITE);
 
             if (KEY_JUST_PRESSED(BUTTON_UP, cs.buttons, ps.buttons))
             {
