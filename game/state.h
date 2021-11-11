@@ -18,11 +18,12 @@ struct state {
     int numEnemies;
     struct entity enemies[MAX_ENEMIES];
     u32 buttons;
+    int initialized;
 };
 
 extern struct state cs;
 extern struct state ps;
 
-void setupInitialState();
+void setupGameState();
 
 #endif

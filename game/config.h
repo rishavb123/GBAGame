@@ -9,11 +9,12 @@
 
 
 #define JUMP_SPEED -10
-#define SPEED 2
+#define SPEED 3
 
 // Game configurations
 #define BACKGROUND_COLOR BLACK
 
-#define MAX_ENEMIES 3
+#define MAX_ENEMIES 10
+#define SPAWN_ENEMY 100
 
 #endif

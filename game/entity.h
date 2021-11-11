@@ -45,4 +45,13 @@ void jump(struct entity *e);
  */
 void update(struct entity *e);
 
+/**
+ * @brief checks if two entities collide
+ * 
+ * @param e1 the first entity
+ * @param e2 the second entity
+ * @return int whether or not it collides
+ */
+int collide(struct entity *e1, struct entity *e2);
+
 #endif
