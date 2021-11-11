@@ -57,12 +57,12 @@ int main(void)
             drawRectDMA(10, 10, 100, 10, BLACK);
             drawRectDMA(10, 10, cs.player.health, 10, GREEN);
             drawRectDMA(10, WIDTH - 200, 200, 20, BLACK);
-            char s[10];
             int score = t / 100;
             if (score > 999)
                 score = 999;
-            itoa(score, s, 3);
-            drawCenteredString(10, WIDTH - 200, 200, 20, s, WHITE);
+            char s2[11];
+            snprintf(s2, 11, "N: %d", score);
+            drawCenteredString(10, WIDTH - 200, 200, 20, s2, WHITE);
 
             if (KEY_JUST_PRESSED(BUTTON_UP, cs.buttons, ps.buttons))
             {
@@ -123,21 +123,12 @@ int main(void)
                 drawFullScreenImageDMA(dead);
                 drawCenteredString(10, 10, WIDTH - 20, HEIGHT - 20, "You Died :(", GREEN);
                 cs.initialized = 0;
+                t = 0;
             }
 
             t++;
             break;
         case DEATH:
-            if (KEY_JUST_PRESSED(BUTTON_START, cs.buttons, ps.buttons))
-            {
-                cs.gameState = PLAY;
-                fillScreenDMA(BACKGROUND_COLOR);
-            }
-            else if (KEY_JUST_PRESSED(BUTTON_SELECT, cs.buttons, ps.buttons))
-            {
-                cs.gameState = START;
-                drawFullScreenImageDMA(startScreen);
-            }
             break;
         }
         ps = cs;
