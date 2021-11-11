@@ -25,8 +25,10 @@ void update(struct entity *e)
     e->x += e->dx;
     if (e->onGround)
     {
-        if (e->dy > 0)
+        if (e->dy < 0) {
             e->y += e->dy;
+            e->onGround = 0;
+        }
         else
             e->dy = 0;
     }
@@ -34,5 +36,9 @@ void update(struct entity *e)
     {
         e->y += e->dy;
         e->dy += G;
+        if (e->y + e->h >= HEIGHT) {
+            e->y = HEIGHT - e->h;
+            e->onGround = 1;
+        }
     }
 }
