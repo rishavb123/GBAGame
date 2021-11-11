@@ -5,9 +5,11 @@
 
 // Physics constants
 #define G 1
-#define JUMP_SPEED -5
+#define PHYSICS_UPDATE 3
 
-#define PHYSICS_UPDATE 1
+
+#define JUMP_SPEED -10
+#define SPEED 2
 
 // Game configurations
 #define BACKGROUND_COLOR BLACK
